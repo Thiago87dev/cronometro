@@ -1,12 +1,15 @@
 function cronometro() {
     let iniciar = document.querySelector('.iniciar')
+    let pausar = document.querySelector('.pausar')
+    let zerar = document.querySelector('.zerar')
     let relogio = document.querySelector('.relogio')
 
     let seg = 0
     let min = 0
     let hor = 0
     let cronometro
-
+    pausar.disabled = true
+    zerar.disabled = true
     function inicarRelogio() {
         relogio.classList.remove('pausado')
         cronometro = setInterval(function () {
@@ -27,16 +30,21 @@ function cronometro() {
         let el = e.target
 
         if (el.classList.contains('iniciar')) {
+            pausar.disabled = false
+            zerar.disabled = false
             iniciar.disabled = true
             inicarRelogio()
         }
         if (el.classList.contains('pausar')) {
+            pausar.disabled = true
             iniciar.disabled = false
             relogio.classList.add('pausado')
             clearInterval(cronometro)
         }
         if (el.classList.contains('zerar')) {
             iniciar.disabled = false
+            pausar.disabled = true
+            zerar.disabled = true
             relogio.classList.remove('pausado')
             clearInterval(cronometro)
             relogio.innerHTML = '00:00:00'
